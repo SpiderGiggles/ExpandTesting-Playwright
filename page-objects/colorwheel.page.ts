@@ -73,7 +73,9 @@ export class ColorWheelPage extends BasePage {
         for (let i = 0; i < this.colorOrder.length - 1; i++) {
             let nextIndex = (startIndex + i + 1) % this.colorOrder.length;
             let nextColor = this.colorOrder[nextIndex];
+
             await this.colorOptions[nextColor].click();
+            
             const isStillVisible = await incorrectColorMessage.isVisible();
             if (!isStillVisible) {
                 break;
