@@ -9,6 +9,7 @@ import { AdsPopup } from "../page-components/adds.popup";
 import { FileUploadPage } from "../page-objects/fileupload.page";
 import { HomePage } from "../page-objects/home.page";
 import { HoverOverPage } from "../page-objects/hoverover.page";
+import { ColorWheelPage } from "../page-objects/colorwheel.page";
 
 test.describe("Full Sanity", () => {
   test.beforeEach(async ({ page }) => {
@@ -149,5 +150,15 @@ test.describe("Full Sanity", () => {
     await hoverOverPage.assertViewProfileVisible("user1");
     await hoverOverPage.clickViewProfile();
     await hoverOverPage.assertWelcomeMessage("user1");
+  });
+
+  test("Color Wheel Game", async ({ page }) => {
+    const colorWheelPage = new ColorWheelPage(page);
+    const adsPopup = new AdsPopup(page);
+    const homePage = new HomePage(page);
+
+    await adsPopup.closeIfVisible();
+    await homePage.openCard("colorwheel");
+    await colorWheelPage.playGame();
   });
 });

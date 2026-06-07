@@ -8,7 +8,8 @@ export type CardOptions =
   | "draganddrop"
   | "draganddropcircles"
   | "fileupload"
-  | "hoverover";
+  | "hoverover"
+  | "colorwheel";
 
 class HomePageActions {
   readonly page: Page;
@@ -19,6 +20,7 @@ class HomePageActions {
   readonly dragAndDropCirclesButton: Locator;
   readonly fileUploadButton: Locator;
   readonly hoverOverButton: Locator;
+  readonly colorWheelButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -38,6 +40,7 @@ class HomePageActions {
     });
     this.fileUploadButton = page.getByRole('link', { name: 'File Upload' });
     this.hoverOverButton = page.getByRole('link', { name: 'Hovers' });
+    this.colorWheelButton = page.getByRole('link', { name: 'Color Wheel' });
   }
 
   async openCard(option: CardOptions): Promise<void> {
@@ -49,6 +52,7 @@ class HomePageActions {
       draganddropcircles: this.dragAndDropCirclesButton,
       fileupload: this.fileUploadButton,
       hoverover: this.hoverOverButton,
+      colorwheel: this.colorWheelButton,
     };
 
     const card = cardMap[option];
