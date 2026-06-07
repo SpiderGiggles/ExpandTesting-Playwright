@@ -16,12 +16,6 @@ export class ForgotPasswordPage extends BasePage {
     this.flashMessage = page.locator("#flash");
   }
 
-  async goTo(): Promise<void> {
-    await this.page.goto("/forgot-password");
-    await expect(this.emailInput).toBeVisible();
-    await expect(this.retrievePasswordButton).toBeVisible();
-  }
-
   async emailReset(email: string): Promise<void> {
     await this.emailInput.fill(email);
     await expect(this.emailInput).toHaveValue(email);

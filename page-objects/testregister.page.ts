@@ -23,13 +23,6 @@ export class TestRegisterPage extends BasePage {
     this.flashMessage = page.locator("#flash");
   }
 
-  async goto(): Promise<void> {
-    await this.page.goto("/register");
-    await expect(this.usernameInput).toBeVisible();
-    await expect(this.passwordInput).toBeVisible();
-    await expect(this.passwordConfirm).toBeVisible();
-  }
-
   async register(username: string, password: string): Promise<void> {
     await this.usernameInput.fill(username);
     await expect(this.usernameInput).toHaveValue(username);

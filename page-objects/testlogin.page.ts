@@ -18,13 +18,6 @@ export class TestLoginPage extends BasePage {
     this.logoutButton = page.getByRole("link", { name: "Logout" });
   }
 
-  async goTo(): Promise<void> {
-    await this.page.goto("/login");
-    await expect(this.usernameInput).toBeVisible();
-    await expect(this.passwordInput).toBeVisible();
-    await expect(this.loginButton).toBeVisible();
-  }
-
   async login(username: string, password: string): Promise<void> {
     await this.usernameInput.fill(username);
     await expect(this.usernameInput).toHaveValue(username);

@@ -12,13 +12,6 @@ export class DragAndDropPage extends BasePage {
     this.columnB = page.locator("#column-b");
   }
 
-  async goTo(): Promise<void> {
-    await this.page.goto("/drag-and-drop");
-
-    await expect(this.columnA).toBeVisible();
-    await expect(this.columnB).toBeVisible();
-  }
-
   async dragColumn(source: Locator, target: Locator) {
     await source.dragTo(target);
   }

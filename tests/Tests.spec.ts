@@ -8,6 +8,7 @@ import { DragAndDropCirclesPage } from "../page-objects/draganddrop-circles.page
 import { AdsPopup } from "../page-components/adds.popup";
 import { FileUploadPage } from "../page-objects/fileupload.page";
 import { HomePage } from "../page-objects/home.page";
+import { HoverOverPage } from "../page-objects/hoverover.page";
 
 test.describe("Full Sanity", () => {
   test.beforeEach(async ({ page }) => {
@@ -35,7 +36,7 @@ test.describe("Full Sanity", () => {
     const homePage = new HomePage(page);
 
     await adsPopup.closeIfVisible();
-    await homePage.openCard("testloginpage");
+    await homePage.openCard("testlogin");
     await loginPage.loginWithValidCredentials();
     await loginPage.assertSuccessfulLogin();
   });
@@ -46,7 +47,7 @@ test.describe("Full Sanity", () => {
     const homePage = new HomePage(page);
 
     await adsPopup.closeIfVisible();
-    await homePage.openCard("testloginpage");
+    await homePage.openCard("testlogin");
     await loginPage.login("wrongUser", "SuperSecretPassword!");
     await loginPage.assertInvalidUsername();
   });
@@ -57,7 +58,7 @@ test.describe("Full Sanity", () => {
     const homePage = new HomePage(page);
 
     await adsPopup.closeIfVisible();
-    await homePage.openCard("testloginpage");
+    await homePage.openCard("testlogin");
     await loginPage.login("practice", "WrongPassword");
     await loginPage.assertInvalidPassword();
   });
@@ -68,7 +69,7 @@ test.describe("Full Sanity", () => {
     const homePage = new HomePage(page);
 
     await adsPopup.closeIfVisible();
-    await homePage.openCard("testregisterpage");
+    await homePage.openCard("testregister");
     await registerPage.register("Testing", "CorrectPassword");
     await registerPage.assertSuccessfulRegister();
   });
@@ -79,7 +80,7 @@ test.describe("Full Sanity", () => {
     const homePage = new HomePage(page);
 
     await adsPopup.closeIfVisible();
-    await homePage.openCard("draganddroppage");
+    await homePage.openCard("draganddrop");
 
     await expect(
       await dragAndDropPage.getColumnText(dragAndDropPage.columnA),
@@ -108,7 +109,7 @@ test.describe("Full Sanity", () => {
     const homePage = new HomePage(page);
 
     await adsPopup.closeIfVisible();
-    await homePage.openCard("draganddropcirclespage");
+    await homePage.openCard("draganddropcircles");
 
     await adsPopup.closeIfVisible();
     await dragAndDropCirclesPage.expectColorInSource("blue");
@@ -135,5 +136,18 @@ test.describe("Full Sanity", () => {
     await homePage.openCard("fileupload");
     await fileUploadPage.uploadFile("FileUpload.csv");
     await fileUploadPage.assertSuccessfulUpload("FileUpload.csv");
+  });
+
+  test("Hover Over User Profile", async ({ page }) => {
+    const hoverOverPage = new HoverOverPage(page);
+    const adsPopup = new AdsPopup(page);
+    const homePage = new HomePage(page);
+
+    await adsPopup.closeIfVisible();
+    await homePage.openCard("hoverover");
+    await hoverOverPage.hoverOverUser("user1");
+    await hoverOverPage.assertViewProfileVisible("user1");
+    await hoverOverPage.clickViewProfile();
+    await hoverOverPage.assertWelcomeMessage("user1");
   });
 });

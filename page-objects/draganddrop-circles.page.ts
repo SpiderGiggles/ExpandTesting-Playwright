@@ -21,16 +21,6 @@ export class DragAndDropCirclesPage extends BasePage {
     this.whiteSource = page.locator(".row > div:nth-child(2)");
   }
 
-  async goTo(): Promise<void> {
-    await this.page.goto("/drag-and-drop-circles");
-
-    await expect(this.circles.red).toBeVisible();
-    await expect(this.circles.green).toBeVisible();
-    await expect(this.circles.blue).toBeVisible();
-    await expect(this.grayTarget).toBeVisible();
-    await expect(this.whiteSource).toBeVisible();
-  }
-
   async dragCircleToTarget(color: CircleColor): Promise<void> {
     await this.circles[color].dragTo(this.grayTarget);
   }
